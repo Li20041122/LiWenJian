@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fosu.book.dao.BorrowMapper">
+  <resultMap id="BaseResultMap" type="edu.fosu.book.entity.Borrow">
+    <id column="UserID" jdbcType="CHAR" property="userid" />
+    <id column="BookID" jdbcType="CHAR" property="bookid" />
+    <result column="BorrowTime" jdbcType="TIMESTAMP" property="borrowtime" />
+    <result column="ReturnTime" jdbcType="TIMESTAMP" property="returntime" />
+    <result column="PenalSum" jdbcType="DECIMAL" property="penalsum" />
+    <result column="Payment" jdbcType="DECIMAL" property="payment" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="map">
+    delete from borrow
+    where UserID = #{userid,jdbcType=CHAR}
+      and BookID = #{bookid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="edu.fosu.book.entity.Borrow">
+    insert into borrow (UserID, BookID, BorrowTime, 
+      ReturnTime, PenalSum, Payment
+      )
+    values (#{userid,jdbcType=CHAR}, #{bookid,jdbcType=CHAR}, #{borrowtime,jdbcType=TIMESTAMP}, 
+      #{returntime,jdbcType=TIMESTAMP}, #{penalsum,jdbcType=DECIMAL}, #{payment,jdbcType=DECIMAL}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="edu.fosu.book.entity.Borrow">
+    update borrow
+    set BorrowTime = #{borrowtime,jdbcType=TIMESTAMP},
+      ReturnTime = #{returntime,jdbcType=TIMESTAMP},
+      PenalSum = #{penalsum,jdbcType=DECIMAL},
+      Payment = #{payment,jdbcType=DECIMAL}
+    where UserID = #{userid,jdbcType=CHAR}
+      and BookID = #{bookid,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="map" resultMap="BaseResultMap">
+    select UserID, BookID, BorrowTime, ReturnTime, PenalSum, Payment
+    from borrow
+    where UserID = #{userid,jdbcType=CHAR}
+      and BookID = #{bookid,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select UserID, BookID, BorrowTime, ReturnTime, PenalSum, Payment
+    from borrow
+  </select>
+</mapper>

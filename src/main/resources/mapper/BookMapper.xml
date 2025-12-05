@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fosu.book.dao.BookMapper">
+  <resultMap id="BaseResultMap" type="edu.fosu.book.entity.Book">
+    <id column="BookID" jdbcType="CHAR" property="bookid" />
+    <result column="BookName" jdbcType="VARCHAR" property="bookname" />
+    <result column="Authors" jdbcType="VARCHAR" property="authors" />
+    <result column="Publication" jdbcType="VARCHAR" property="publication" />
+    <result column="PublicDate" jdbcType="DATE" property="publicdate" />
+    <result column="Price" jdbcType="DECIMAL" property="price" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from book
+    where BookID = #{bookid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="edu.fosu.book.entity.Book">
+    insert into book (BookID, BookName, Authors, 
+      Publication, PublicDate, Price
+      )
+    values (#{bookid,jdbcType=CHAR}, #{bookname,jdbcType=VARCHAR}, #{authors,jdbcType=VARCHAR}, 
+      #{publication,jdbcType=VARCHAR}, #{publicdate,jdbcType=DATE}, #{price,jdbcType=DECIMAL}
+      )
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="edu.fosu.book.entity.Book">
+    update book
+    set BookName = #{bookname,jdbcType=VARCHAR},
+      Authors = #{authors,jdbcType=VARCHAR},
+      Publication = #{publication,jdbcType=VARCHAR},
+      PublicDate = #{publicdate,jdbcType=DATE},
+      Price = #{price,jdbcType=DECIMAL}
+    where BookID = #{bookid,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select BookID, BookName, Authors, Publication, PublicDate, Price
+    from book
+    where BookID = #{bookid,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select BookID, BookName, Authors, Publication, PublicDate, Price
+    from book
+  </select>
+</mapper>

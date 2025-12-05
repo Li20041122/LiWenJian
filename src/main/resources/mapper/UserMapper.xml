@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="edu.fosu.book.dao.UserMapper">
+  <resultMap id="BaseResultMap" type="edu.fosu.book.entity.User">
+    <id column="UserID" jdbcType="CHAR" property="userid" />
+    <result column="DepartID" jdbcType="CHAR" property="departid" />
+    <result column="UserName" jdbcType="VARCHAR" property="username" />
+    <result column="Password" jdbcType="VARCHAR" property="password" />
+    <result column="PhoneNum" jdbcType="CHAR" property="phonenum" />
+    <result column="Sex" jdbcType="CHAR" property="sex" />
+  </resultMap>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from tuser
+    where UserID = #{userid,jdbcType=CHAR}
+  </delete>
+  <insert id="insert" parameterType="edu.fosu.book.entity.User">
+    insert into tuser (UserID, DepartID, UserName, 
+      Password, PhoneNum, Sex)
+    values (#{userid,jdbcType=CHAR}, #{departid,jdbcType=CHAR}, #{username,jdbcType=VARCHAR}, 
+      #{password,jdbcType=VARCHAR}, #{phonenum,jdbcType=CHAR}, #{sex,jdbcType=CHAR})
+  </insert>
+  <update id="updateByPrimaryKey" parameterType="edu.fosu.book.entity.User">
+    update tuser
+    set DepartID = #{departid,jdbcType=CHAR},
+      UserName = #{username,jdbcType=VARCHAR},
+      Password = #{password,jdbcType=VARCHAR},
+      PhoneNum = #{phonenum,jdbcType=CHAR},
+      Sex = #{sex,jdbcType=CHAR}
+    where UserID = #{userid,jdbcType=CHAR}
+  </update>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select UserID, DepartID, UserName, Password, PhoneNum, Sex
+    from tuser
+    where UserID = #{userid,jdbcType=CHAR}
+  </select>
+  <select id="selectAll" resultMap="BaseResultMap">
+    select UserID, DepartID, UserName, Password, PhoneNum, Sex
+    from tuser
+  </select>
+</mapper>
